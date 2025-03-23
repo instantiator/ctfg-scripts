@@ -14,5 +14,5 @@ jobs:
         run: |
           pushd screenshot
           npm install
-          npx tsx screenshot/screenshot.ts
+          npx tsx screenshot.ts
           popd
