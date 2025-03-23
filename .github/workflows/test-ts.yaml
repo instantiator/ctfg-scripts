@@ -1,0 +1,18 @@
+# workflow triggers
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - screenshot
+
+jobs:
+  screenshot:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          npm install ts-node
+          node --loader ts-node/esm --no-warnings --input-type=module <<EOF
+            console.log("Hello");
+            await new Promise((resolve) => setTimeout(resolve, 5000));
+            console.log("Sleepyhead");
+          EOF
