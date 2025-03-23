@@ -1,3 +1,5 @@
+name: take screenshot
+
 on:
   workflow_dispatch:
   repository_dispatch:
@@ -15,3 +17,5 @@ jobs:
       - name: take screenshot
         run: |
           npx tsx screenshot/take-screenshot.ts
+        env:
+          CLIENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}

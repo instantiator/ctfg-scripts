@@ -1,0 +1,21 @@
+name: test
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - test
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: install dependencies
+        run: npm install
+      - name: run test
+        run: |
+          npx tsx test/run-test.ts
+        env:
+          CLIENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
