@@ -53,19 +53,10 @@ Include data under the `client_payload` key, and it will be available to the wor
 }
 ```
 
-and you can refer to this later:
+You can refer to this later in the workflow: `github.event.client_payload`, or even pass the entire object as JSON eg.
 
 ```yaml
-on:
-  repository_dispatch:
-    types: [test_result]
-
-jobs:
-  run_if_failure:
-    if: ${{ !github.event.client_payload.passed }}
-    runs-on: ubuntu-latest
-    steps:
-      - env:
-          MESSAGE: ${{ github.event.client_payload.message }}
-        run: echo $MESSAGE
+env:
+  MESSAGE: ${{ github.event.client_payload.message }}
+  CLIENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
 ```
