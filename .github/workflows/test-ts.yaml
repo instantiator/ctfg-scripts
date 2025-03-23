@@ -10,11 +10,9 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: install ts-node
-        run: npm i typescript ts-node
       - name: take screenshot
         run: |
           pushd screenshot
-          npm i
-          NODE_NO_WARNINGS=1 npx ts-node screenshot.ts
+          npm install
+          npx tsx screenshot/screenshot.ts
           popd
