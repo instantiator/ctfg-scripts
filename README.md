@@ -1,6 +1,10 @@
 # ctfg-scripts
 
-Make a POST to the repository dispatches url:
+Scripts to support the Civic Tech Field Guide.
+
+## Usage
+
+To run an action, make a POST to the repository dispatches url:
 
 ```
 https://api.github.com/repos/instantiator/ctfg-scripts/dispatches
@@ -38,7 +42,7 @@ I'd guess our AWS region is: `eu-west-2`
 
 ## Secrets
 
-The following GitHub Actions repository secrets are required:
+The following credentials are managed as GitHub Actions repository secrets:
 
 | Secret              |
 | ------------------- |
