@@ -16,6 +16,7 @@ jobs:
         run: npm install
       - name: take screenshot
         run: |
-          npx tsx screenshot/take-screenshot.ts
+          npx tsx screenshot/app.ts
         env:
           CLIENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
+          SECRETS: ${{ toJson(secrets) }}

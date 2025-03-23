@@ -1,62 +1,49 @@
 # ctfg-scripts
 
-## Prerequisites
+Make a POST to the repository dispatches url:
 
-These modules use `tsx` - install with `npm` from the root directory of the repo.
-
-```bash
-npm install
 ```
-
-Ensure that `package.json` has `"type": "module"` set.
-
-## Triggering a workflow from a webhook
-
-* Add a `repository_dispatch` trigger to your workflow:
-
-```yaml
-on:
-  repository_dispatch:
-    types:
-      - MyEvent
+https://api.github.com/repos/instantiator/ctfg-scripts/dispatches
 ```
-
-### To trigger the workflow
-
-Make a POST to the repository dispatches url: `https://api.github.com/repos/{owner}/{repo}/dispatches`
 
 Add these headers:
 
-* `Accept`: `application/vnd.github+json`
-* `Authorization`: `<personal access token>`
+- `Accept`: `application/vnd.github+json`
+- `Authorization`: `Bearer <personal access token>`
 
-The PAT must have the `repo` access scope.
+The fine-grained PAT must have the following permissions:
 
-Provide the event type in the body, as:
+- Contents repository permissions (write)
 
-```json
-{
-  "event_type": "MyEvent"
-}
-```
+Provide the event type in the body.
 
-### To trigger the workflow with data
+## Screenshots
 
-Include data under the `client_payload` key, and it will be available to the workflow in `github.event.client_payload`, ie.
+Provide the following body:
 
 ```json
 {
-  "event_type": "MyEvent",
+  "event_type": "screenshot",
   "client_payload": {
-    "action": "do-something"
+    "id": "<record-id>",
+    "url": "<url-to-screenshot>",
+    "aws_bucket": "<aws-s3-bucket>",
+    "aws_region": "<aws-region>",
+    "airtable_base": "CTFG"
   }
 }
 ```
 
-You can refer to this later in the workflow: `github.event.client_payload`, or even pass the entire object as JSON eg.
+I'd guess our AWS region is: `eu-west-2`
 
-```yaml
-env:
-  MESSAGE: ${{ github.event.client_payload.message }}
-  CLIENT_PAYLOAD: ${{ toJson(github.event.client_payload) }}
-```
+## Secrets
+
+The following GitHub Actions repository secrets are required:
+
+| Secret              |
+| ------------------- |
+| `TECHULUS_API_KEY`  |
+| `TECHULUS_SECRET`   |
+| `AWS_ACCESS_KEY`    |
+| `AWS_ACCESS_SECRET` |
+| `AIRTABLE_TOKEN`    |
